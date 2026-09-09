@@ -13,6 +13,7 @@ C is a **procedural programming language** that allows us to write instructions 
 > C is a general-purpose procedural programming language that provides low-level memory access and is widely used for system and application development.
 
 ---
+
 ## 2. Basic Structure of a C Program
 
 ```c
@@ -244,7 +245,7 @@ age >= 18 && age <= 60
 
 ### OR `||`
 
-At least one condition must be true.
+At least one true condition is enough.
 
 ```c
 age < 18 || age > 60
@@ -681,7 +682,65 @@ Length = 5
 
 ---
 
-# 22. Strings
+# 22. Two-Dimensional Arrays
+
+A two-dimensional array is an **array of arrays**.
+
+It is commonly used to represent a matrix or table.
+
+### Example
+
+```c
+int matrix[2][3] = {
+    {1, 2, 3},
+    {4, 5, 6}
+};
+```
+
+The array contains:
+
+```text
+1  2  3
+4  5  6
+```
+
+### Accessing Elements
+
+```c
+printf("%d", matrix[0][1]);
+```
+
+Output:
+
+```text
+2
+```
+
+### Traversing a 2D Array
+
+We generally use nested loops.
+
+```c
+for(int i = 0; i < 2; i++) {
+
+    for(int j = 0; j < 3; j++) {
+        printf("%d ", matrix[i][j]);
+    }
+
+    printf("\n");
+}
+```
+
+Output:
+
+```text
+1 2 3
+4 5 6
+```
+
+---
+
+# 23. Strings
 
 C does not have a separate built-in `string` data type.
 
@@ -703,7 +762,7 @@ The `\0` indicates the **end of the string**.
 
 ---
 
-# 23. String Input
+# 24. String Input
 
 A string without spaces can be read using `scanf()`.
 
@@ -727,7 +786,7 @@ fgets(name, sizeof(name), stdin);
 
 ---
 
-# 24. String Length
+# 25. String Length
 
 The standard library provides the `strlen()` function to find the length of a string.
 
@@ -761,9 +820,9 @@ int main() {
 
 ---
 
-# 25. Important String Functions
+# 26. Important String Functions
 
-The `<string.h>` library provides several useful string functions.
+The `<string.h>` library provides several useful functions.
 
 | Function | Purpose |
 |---|---|
@@ -791,7 +850,7 @@ int main() {
 
 ---
 
-# 26. Functions
+# 27. Functions
 
 A function is a **block of code designed to perform a specific task**.
 
@@ -817,14 +876,17 @@ Result:
 
 ### Why Use Functions?
 
-- Code reusability
-- Reduces code repetition
-- Makes programs easier to understand
-- Makes debugging easier
+Functions help us:
+
+- Reuse code
+- Reduce repetition
+- Organize programs
+- Improve readability
+- Make debugging easier
 
 ---
 
-# 27. Function Components
+# 28. Function Components
 
 Example:
 
@@ -843,7 +905,45 @@ int add(int a, int b) {
 
 ---
 
-# 28. Pointers
+# 29. Function Declaration, Definition and Calling
+
+A function generally has three important parts.
+
+## Function Declaration
+
+Also called a **function prototype**.
+
+```c
+int add(int, int);
+```
+
+It tells the compiler that the function exists.
+
+---
+
+## Function Definition
+
+Contains the actual implementation.
+
+```c
+int add(int a, int b) {
+    return a + b;
+}
+```
+
+---
+
+## Function Call
+
+Used to execute the function.
+
+```c
+int result = add(10, 20);
+```
+
+---
+
+# 30. Pointers
 
 A pointer is a variable that **stores the memory address of another variable**.
 
@@ -867,7 +967,7 @@ p → stores the address of x
 The `&` operator gives the address of a variable.
 
 ```c
-&p
+&x
 ```
 
 ### `*` Operator
@@ -886,7 +986,84 @@ Output:
 
 ---
 
-# 29. Structures
+# 31. Pointer Arithmetic
+
+Pointer arithmetic allows us to move between elements of an array using pointers.
+
+### Example
+
+```c
+int arr[] = {10, 20, 30};
+
+int *p = arr;
+
+printf("%d\n", *p);
+printf("%d\n", *(p + 1));
+printf("%d\n", *(p + 2));
+```
+
+Output:
+
+```text
+10
+20
+30
+```
+
+When a pointer is increased, it moves according to the size of the type it points to.
+
+For example, if `p` is an `int*`, then:
+
+```c
+p + 1
+```
+
+points to the next `int`.
+
+---
+
+# 32. Arrays and Pointers
+
+The name of an array can usually be used as a pointer to its first element.
+
+### Example
+
+```c
+int arr[] = {10, 20, 30};
+
+printf("%d", *arr);
+```
+
+Output:
+
+```text
+10
+```
+
+This is because:
+
+```text
+arr → address of first element
+*arr → value of first element
+```
+
+We can also write:
+
+```c
+printf("%d", arr[0]);
+```
+
+and:
+
+```c
+printf("%d", *(arr + 0));
+```
+
+Both access the first element.
+
+---
+
+# 33. Structures
 
 A structure allows us to group **different types of data under one name**.
 
@@ -914,9 +1091,97 @@ s1.grade = 'A';
 s1.marks = 85.5;
 ```
 
+Accessing values:
+
+```c
+printf("%d", s1.age);
+```
+
 ---
 
-# 30. Dynamic Memory Allocation
+# 34. Union
+
+A union is similar to a structure, but all members **share the same memory location**.
+
+### Example
+
+```c
+union Data {
+    int i;
+    float f;
+    char ch;
+};
+```
+
+Creating a variable:
+
+```c
+union Data data;
+```
+
+### Important Difference
+
+### Structure
+
+Each member has its own memory.
+
+```text
+struct
+ ├── int
+ ├── float
+ └── char
+```
+
+### Union
+
+Members share memory.
+
+```text
+union
+ └── Shared Memory
+       ├── int
+       ├── float
+       └── char
+```
+
+Therefore, a union can store a value for one member at a time in the commonly intended use.
+
+---
+
+# 35. Enumeration
+
+An enumeration, or `enum`, is a user-defined type consisting of named integer constants.
+
+### Example
+
+```c
+enum Day {
+    MONDAY,
+    TUESDAY,
+    WEDNESDAY
+};
+```
+
+By default:
+
+```text
+MONDAY    → 0
+TUESDAY   → 1
+WEDNESDAY → 2
+```
+
+We can also assign values:
+
+```c
+enum Status {
+    SUCCESS = 1,
+    FAILURE = 0
+};
+```
+
+---
+
+# 36. Dynamic Memory Allocation
 
 Dynamic memory allocation means allocating memory **during program execution**.
 
@@ -935,25 +1200,61 @@ These functions are available through:
 #include <stdlib.h>
 ```
 
-### `malloc()`
+---
+
+## `malloc()`
 
 Allocates a block of memory.
 
-### `calloc()`
+### Example
 
-Allocates memory and initializes the allocated bytes to zero.
+```c
+int *p;
 
-### `realloc()`
-
-Changes the size of previously allocated memory.
-
-### `free()`
-
-Releases dynamically allocated memory.
+p = (int *)malloc(5 * sizeof(int));
+```
 
 ---
 
-# 31. Type Casting
+## `calloc()`
+
+Allocates memory and initializes the allocated bytes to zero.
+
+### Example
+
+```c
+int *p;
+
+p = (int *)calloc(5, sizeof(int));
+```
+
+---
+
+## `realloc()`
+
+Changes the size of previously allocated memory.
+
+### Example
+
+```c
+p = (int *)realloc(p, 10 * sizeof(int));
+```
+
+---
+
+## `free()`
+
+Releases dynamically allocated memory.
+
+### Example
+
+```c
+free(p);
+```
+
+---
+
+# 37. Type Casting
 
 Type casting means **converting one data type into another**.
 
@@ -964,6 +1265,14 @@ int a = 10;
 int b = 3;
 
 float result = (float)a / b;
+
+printf("%f", result);
+```
+
+Output:
+
+```text
+3.333333
 ```
 
 Without casting:
@@ -980,7 +1289,7 @@ With casting:
 
 ---
 
-# 32. Header Files
+# 38. Header Files
 
 Header files contain declarations for functions and other features.
 
@@ -1004,7 +1313,7 @@ Examples:
 
 ---
 
-# 33. Preprocessor Directives
+# 39. Preprocessor Directives
 
 Preprocessor directives are processed before the actual compilation.
 
@@ -1034,7 +1343,7 @@ Common preprocessor directives:
 
 ---
 
-# 34. Compilation Process
+# 40. Compilation Process
 
 A C program generally goes through these stages:
 
@@ -1052,19 +1361,37 @@ Linking
 Executable Program
 ```
 
-For example:
+### Step 1 — Source Code
+
+We write:
 
 ```text
 program.c
-    ↓
-Compiler
-    ↓
-Executable Program
 ```
+
+### Step 2 — Preprocessing
+
+Preprocessor directives such as `#include` and `#define` are processed.
+
+### Step 3 — Compilation
+
+The C code is converted into assembly code.
+
+### Step 4 — Assembly
+
+Assembly code is converted into object/machine code.
+
+### Step 5 — Linking
+
+Object files and required libraries are combined.
+
+### Step 6 — Executable
+
+The final executable program is produced.
 
 ---
 
-# 35. Declaration vs Initialization
+# 41. Declaration vs Initialization
 
 ## Declaration
 
@@ -1084,7 +1411,7 @@ int age = 20;
 
 ---
 
-# 36. Local Variable
+# 42. Local Variable
 
 A variable declared inside a function or block is called a **local variable**.
 
@@ -1105,7 +1432,7 @@ Here, `x` is a local variable.
 
 ---
 
-# 37. Global Variable
+# 43. Global Variable
 
 A variable declared outside all functions is called a **global variable**.
 
@@ -1126,7 +1453,79 @@ Here, `x` is a global variable.
 
 ---
 
-# 38. Pre-Increment and Post-Increment
+# 44. Storage Classes
+
+Storage classes determine characteristics such as the **scope, lifetime, and linkage** of variables.
+
+The commonly discussed storage classes in C are:
+
+```text
+auto
+register
+static
+extern
+```
+
+---
+
+## `auto`
+
+Local variables are automatic by default.
+
+```c
+void test() {
+
+    auto int x = 10;
+
+}
+```
+
+`auto` is rarely written explicitly.
+
+---
+
+## `register`
+
+Suggests that a variable may be stored in a CPU register for faster access.
+
+```c
+register int i;
+```
+
+The compiler decides whether to actually use a register.
+
+---
+
+## `static`
+
+A local static variable retains its value between function calls.
+
+```c
+void test() {
+
+    static int count = 0;
+
+    count++;
+
+    printf("%d\n", count);
+}
+```
+
+If `test()` is called multiple times, `count` does not reset to zero each time.
+
+---
+
+## `extern`
+
+Used to refer to a global variable defined elsewhere.
+
+```c
+extern int x;
+```
+
+---
+
+# 45. Pre-Increment and Post-Increment
 
 This is an important interview concept.
 
@@ -1196,7 +1595,7 @@ a++  → Use first, increase later
 
 ---
 
-# 39. sizeof Operator
+# 46. sizeof Operator
 
 `sizeof` is used to find the size of a type or object in bytes.
 
@@ -1206,11 +1605,19 @@ a++  → Use first, increase later
 printf("%zu", sizeof(int));
 ```
 
-The size of a type can depend on the compiler and platform.
+Another example:
+
+```c
+int x = 10;
+
+printf("%zu", sizeof(x));
+```
+
+The exact size of a type can depend on the compiler and platform.
 
 ---
 
-# 40. Call by Value
+# 47. Call by Value
 
 In C, function arguments are passed **by value**.
 
@@ -1220,6 +1627,7 @@ That means the function receives a copy of the value.
 
 ```c
 void change(int x) {
+
     x = 20;
 }
 
@@ -1245,7 +1653,7 @@ The original `a` is not changed.
 
 ---
 
-# 41. Passing Address Using Pointer
+# 48. Passing Address Using Pointer
 
 We can pass the address of a variable to a function using a pointer.
 
@@ -1253,6 +1661,7 @@ We can pass the address of a variable to a function using a pointer.
 
 ```c
 void change(int *x) {
+
     *x = 20;
 }
 
@@ -1276,9 +1685,15 @@ int main() {
 
 The function modifies the original variable through its address.
 
+### Important Interview Point
+
+C technically uses **pass-by-value**.
+
+In this example, the value being passed is the **address stored in the pointer**.
+
 ---
 
-# 42. Recursion
+# 49. Recursion
 
 Recursion means a function **calls itself**.
 
@@ -1321,6 +1736,267 @@ Therefore:
 
 ```text
 5 × 4 × 3 × 2 × 1 = 120
+```
+
+### Important
+
+Every recursive function should have a **base condition**.
+
+Here:
+
+```c
+if(n == 0) {
+    return 1;
+}
+```
+
+The base condition stops the recursion.
+
+---
+
+# 50. Bitwise Operators
+
+Bitwise operators work directly with the **individual bits** of integer values.
+
+| Operator | Name |
+|---|---|
+| `&` | Bitwise AND |
+| `|` | Bitwise OR |
+| `^` | Bitwise XOR |
+| `~` | Bitwise NOT |
+| `<<` | Left Shift |
+| `>>` | Right Shift |
+
+### Example
+
+```c
+int a = 5;
+int b = 3;
+
+printf("%d", a & b);
+```
+
+Binary representation:
+
+```text
+5 = 101
+3 = 011
+
+5 & 3
+
+101
+011
+---
+001
+```
+
+Output:
+
+```text
+1
+```
+
+---
+
+# 51. Operator Precedence
+
+Operator precedence determines **which operation is performed first**.
+
+### Example
+
+```c
+int result = 10 + 5 * 2;
+```
+
+Multiplication is performed first.
+
+```text
+5 * 2 = 10
+10 + 10 = 20
+```
+
+Therefore:
+
+```text
+result = 20
+```
+
+### Use Parentheses
+
+Parentheses can make the order explicit.
+
+```c
+int result = (10 + 5) * 2;
+```
+
+Now:
+
+```text
+15 * 2 = 30
+```
+
+---
+
+# 52. Input and Output
+
+C provides functions for taking input and displaying output.
+
+The commonly used functions are:
+
+```text
+printf()
+scanf()
+fgets()
+```
+
+### Output Using `printf()`
+
+```c
+printf("Hello");
+```
+
+### Integer Output
+
+```c
+int age = 20;
+
+printf("%d", age);
+```
+
+### Input Using `scanf()`
+
+```c
+int age;
+
+scanf("%d", &age);
+```
+
+Notice the `&` before `age`.
+
+It gives the address where the input value should be stored.
+
+---
+
+# 53. Format Specifiers
+
+Format specifiers tell `printf()` and `scanf()` what type of data is being used.
+
+| Specifier | Data Type |
+|---|---|
+| `%d` | `int` |
+| `%f` | `float` |
+| `%lf` | `double` with `scanf()` |
+| `%c` | `char` |
+| `%s` | String |
+| `%zu` | `size_t` |
+
+### Example
+
+```c
+int age = 20;
+float mark = 85.5;
+char grade = 'A';
+
+printf("%d\n", age);
+printf("%f\n", mark);
+printf("%c\n", grade);
+```
+
+---
+
+# 54. File Handling
+
+File handling allows a C program to **create, read, write, and modify files**.
+
+The main functions are:
+
+```text
+fopen()
+fclose()
+fprintf()
+fscanf()
+fgets()
+fputs()
+```
+
+### Opening a File
+
+```c
+FILE *file;
+
+file = fopen("data.txt", "w");
+```
+
+### Writing to a File
+
+```c
+fprintf(file, "Hello World");
+```
+
+### Closing a File
+
+```c
+fclose(file);
+```
+
+### Example
+
+```c
+#include <stdio.h>
+
+int main() {
+
+    FILE *file;
+
+    file = fopen("data.txt", "w");
+
+    if(file == NULL) {
+        printf("File could not be opened");
+        return 1;
+    }
+
+    fprintf(file, "Hello World");
+
+    fclose(file);
+
+    return 0;
+}
+```
+
+---
+
+# 55. Command Line Arguments
+
+Command line arguments allow us to pass values to a program when starting it.
+
+The `main()` function can be written as:
+
+```c
+int main(int argc, char *argv[]) {
+    
+    return 0;
+}
+```
+
+### `argc`
+
+Contains the number of command line arguments.
+
+### `argv`
+
+Contains the actual argument strings.
+
+### Example
+
+```c
+#include <stdio.h>
+
+int main(int argc, char *argv[]) {
+
+    printf("%d\n", argc);
+
+    return 0;
+}
 ```
 
 ---
