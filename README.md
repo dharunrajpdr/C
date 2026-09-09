@@ -13,9 +13,6 @@ C is a **procedural programming language** that allows us to write instructions 
 > C is a general-purpose procedural programming language that provides low-level memory access and is widely used for system and application development.
 
 ---
-
-# C Programming
-
 ## 2. Basic Structure of a C Program
 
 ```c
